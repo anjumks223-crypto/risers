@@ -1,0 +1,1072 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Content Riser | Turn Your Audience Into Revenue</title>
+    <meta name="description" content="We build lead magnets, funnels, and email systems that turn passive followers into subscribers, buyers, and real revenue.">
+    
+    <!-- Favicon Placeholder -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📈</text></svg>">
+
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        /* =========================================
+           CSS VARIABLES & RESET
+           ========================================= */
+        :root {
+            --bg-color: #f0f7f4;
+            --primary: #0f766e;
+            --primary-dark: #0b5852;
+            --accent: #e4572e;
+            --accent-hover: #cc4d28;
+            --text-dark: #111111;
+            --text-light: #3f3f46;
+            --glass-bg: rgba(255, 255, 255, 0.6);
+            --glass-border: rgba(255, 255, 255, 0.8);
+            --radius: 20px;
+            --shadow-soft: 0 8px 32px rgba(15, 118, 110, 0.08);
+            --shadow-hover: 0 15px 50px rgba(15, 118, 110, 0.15);
+            --transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            --transition-fast: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* =========================================
+           BACKGROUND BLOBS (PARALLAX & GLASS EFFECT)
+           ========================================= */
+        .bg-mesh {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: 0.4;
+            animation: floatBlob 25s infinite alternate cubic-bezier(0.4, 0, 0.2, 1);
+            will-change: transform;
+        }
+
+        .blob-1 { background: #0f766e; width: 600px; height: 600px; top: -10%; left: -10%; }
+        .blob-2 { background: #e4572e; width: 500px; height: 500px; bottom: 10%; right: -5%; animation-delay: -5s; animation-direction: alternate-reverse; }
+        .blob-3 { background: #2dd4bf; width: 400px; height: 400px; top: 40%; left: 40%; animation-delay: -10s; opacity: 0.2;}
+
+        @keyframes floatBlob {
+            0% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(150px, 80px) scale(1.1); }
+            100% { transform: translate(-50px, 150px) scale(0.9); }
+        }
+
+        /* =========================================
+           TYPOGRAPHY & UTILITIES
+           ========================================= */
+        h1, h2, h3, h4 { color: var(--text-dark); line-height: 1.2; letter-spacing: -0.02em; }
+        p { color: var(--text-light); font-size: 1.125rem; margin-bottom: 1.5rem; }
+        a { text-decoration: none; color: var(--primary); transition: var(--transition); }
+        
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; position: relative; z-index: 1; }
+        .section { padding: 8rem 0; }
+        .text-center { text-align: center; }
+        .mb-1 { margin-bottom: 0.5rem; } .mb-2 { margin-bottom: 1rem; } .mb-3 { margin-bottom: 2rem; } .mb-4 { margin-bottom: 3rem; }
+        
+        .section-header { max-width: 800px; margin: 0 auto 4rem auto; text-align: center; }
+        .section-header h2 { font-size: 3rem; font-weight: 800; margin-bottom: 1rem; }
+
+        /* =========================================
+           GLASSMORPHISM BASE CLASS
+           ========================================= */
+        .glass-panel {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-soft);
+            transition: transform 0.2s ease-out, box-shadow 0.4s ease;
+            will-change: transform;
+            transform-style: preserve-3d;
+        }
+
+        .glass-panel:hover {
+            box-shadow: var(--shadow-hover);
+        }
+
+        /* =========================================
+           BUTTONS & MICRO-INTERACTIONS
+           ========================================= */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.1rem 2.2rem;
+            font-size: 1.125rem;
+            font-weight: 600;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: var(--transition-fast);
+            border: none;
+            outline: none;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .btn::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(255, 255, 255, 0.2);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: -1;
+        }
+
+        .btn:hover::after { opacity: 1; }
+        .btn:active { transform: scale(0.95) !important; } /* Active click compression */
+
+        .btn-accent {
+            background-color: var(--accent);
+            color: white;
+            box-shadow: 0 10px 20px rgba(228, 87, 46, 0.25);
+        }
+
+        .btn-accent:hover {
+            background-color: var(--accent-hover);
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(228, 87, 46, 0.4);
+            color: white;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+            box-shadow: 0 10px 20px rgba(15, 118, 110, 0.2);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(15, 118, 110, 0.3);
+            color: white;
+        }
+
+        .btn-outline {
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(10px);
+            color: var(--text-dark);
+            border: 1px solid rgba(17, 17, 17, 0.2);
+        }
+
+        .btn-outline:hover {
+            background: white;
+            border-color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+        }
+
+        /* =========================================
+           NAVIGATION (GLASS)
+           ========================================= */
+        nav {
+            position: fixed;
+            top: 0; width: 100%;
+            background: rgba(240, 247, 244, 0.7);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+            transition: all 0.4s ease;
+        }
+
+        nav.scrolled {
+            background: rgba(255, 255, 255, 0.85);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+        }
+
+        .nav-container {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 1.2rem 2rem; max-width: 1200px; margin: 0 auto;
+        }
+
+        .logo { font-size: 1.5rem; font-weight: 800; color: var(--primary); letter-spacing: -0.05em; text-transform: uppercase; }
+        .nav-links { display: flex; gap: 2.5rem; align-items: center; }
+        .nav-links a { color: var(--text-dark); font-weight: 600; font-size: 0.95rem; position: relative; }
+        
+        .nav-links a::after {
+            content: ''; position: absolute; width: 0; height: 2px;
+            bottom: -4px; left: 0; background-color: var(--accent);
+            transition: width 0.3s ease;
+        }
+        .nav-links a:hover::after { width: 100%; }
+        .nav-cta { padding: 0.6rem 1.4rem; font-size: 0.9rem; }
+
+        /* =========================================
+           HERO SECTION
+           ========================================= */
+        #hero { min-height: 100vh; display: flex; align-items: center; padding-top: 6rem; position: relative; }
+        
+        .hero-content { max-width: 900px; margin: 0 auto; text-align: center; }
+        .hero-title { font-size: 5rem; font-weight: 800; line-height: 1.1; margin-bottom: 1.5rem; background: linear-gradient(to right, var(--text-dark), var(--primary-dark)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .hero-subtitle { font-size: 1.5rem; color: var(--text-light); margin-bottom: 3rem; max-width: 800px; margin-left: auto; margin-right: auto; }
+
+        .trust-proof { display: flex; justify-content: center; gap: 1.5rem; margin-bottom: 3rem; flex-wrap: wrap; }
+        .proof-item {
+            display: flex; align-items: center; gap: 0.5rem; font-weight: 600; color: var(--primary-dark); font-size: 1rem;
+            background: rgba(255, 255, 255, 0.6); backdrop-filter: blur(10px);
+            padding: 0.6rem 1.2rem; border-radius: 50px; border: 1px solid rgba(255,255,255,0.8);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            transition: transform 0.3s ease;
+        }
+        .proof-item:hover { transform: translateY(-3px) scale(1.02); }
+        .proof-item::before { content: "✓"; color: var(--accent); font-weight: bold; }
+        .hero-ctas { display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap; }
+
+        /* =========================================
+           EDUCATION SECTION
+           ========================================= */
+        .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; perspective: 1000px; }
+        
+        .edu-card { padding: 3rem 2.5rem; border-top: 4px solid var(--accent); position: relative; overflow: hidden; }
+        .edu-card::before {
+            content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: left 0.5s ease; z-index: 0; pointer-events: none;
+        }
+        .edu-card:hover::before { left: 100%; }
+        .edu-card > * { position: relative; z-index: 1; transform: translateZ(20px); }
+        .edu-card h3 { font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem; color: var(--text-dark); }
+        .edu-card p { font-size: 1.05rem; margin-bottom: 0; }
+
+        /* =========================================
+           OFFER/SYSTEM SECTION
+           ========================================= */
+        .system-row { display: flex; align-items: center; gap: 4rem; margin-bottom: 8rem; }
+        .system-row:nth-child(even) { flex-direction: row-reverse; }
+        
+        .system-content { flex: 1; position: relative; }
+        .system-number {
+            font-size: 8rem; font-weight: 800; color: transparent; 
+            -webkit-text-stroke: 2px rgba(15, 118, 110, 0.1);
+            line-height: 1; margin-bottom: -2rem; display: block;
+            transform: translateX(-20px); transition: transform 0.5s ease;
+        }
+        .system-row:hover .system-number { transform: translateX(0); color: rgba(15, 118, 110, 0.05); }
+        
+        .system-content h3 { font-size: 2.5rem; margin-bottom: 1.5rem; color: var(--primary); position: relative; z-index: 1; }
+        .system-content ul { list-style: none; margin-top: 1.5rem; }
+        .system-content li { margin-bottom: 1.2rem; font-size: 1.125rem; color: var(--text-light); display: flex; align-items: flex-start; transition: transform 0.3s ease; }
+        .system-content li:hover { transform: translateX(10px); color: var(--text-dark); }
+        .system-content li::before { content: "→"; color: var(--accent); font-weight: bold; margin-right: 1rem; transition: transform 0.3s ease; }
+        .system-content li:hover::before { transform: translateX(5px); }
+
+        .system-box { flex: 1; padding: 4rem; display: flex; flex-direction: column; justify-content: center; }
+        .system-box > * { transform: translateZ(30px); }
+        .system-box h4 { font-size: 1.25rem; color: var(--primary); margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.05em; }
+        .system-box p { font-size: 1.5rem; font-weight: 600; color: var(--text-dark); line-height: 1.4; }
+
+        /* =========================================
+           AI TOOL SECTION
+           ========================================= */
+        #ai-tool { position: relative; padding: 8rem 0; }
+        .ai-container { max-width: 800px; margin: 0 auto; text-align: center; }
+        
+        /* Floating particles for AI section */
+        .ai-particle {
+            position: absolute; width: 6px; height: 6px; background: var(--accent); border-radius: 50%;
+            animation: riseUp 10s infinite linear; opacity: 0; pointer-events: none;
+        }
+        @keyframes riseUp {
+            0% { transform: translateY(100px) scale(0); opacity: 0; }
+            50% { opacity: 0.5; }
+            100% { transform: translateY(-200px) scale(1); opacity: 0; }
+        }
+
+        .ai-card { padding: 4rem; text-align: left; }
+        .ai-card > * { transform: translateZ(20px); }
+        .ai-input-group { display: flex; gap: 1rem; margin-bottom: 1.5rem; position: relative; z-index: 2; }
+        
+        .ai-input-group input {
+            flex: 1; padding: 1.2rem; background: rgba(255, 255, 255, 0.8);
+            border: 2px solid rgba(255,255,255,0.5); border-radius: 12px;
+            font-size: 1.1rem; transition: var(--transition); box-shadow: inset 0 2px 5px rgba(0,0,0,0.02);
+        }
+        .ai-input-group input:focus { outline: none; border-color: var(--primary); background: #ffffff; box-shadow: 0 0 0 4px rgba(15, 118, 110, 0.1); }
+        .ai-btn { white-space: nowrap; }
+
+        .ai-result-box {
+            display: none; background: rgba(255, 255, 255, 0.9);
+            border-left: 4px solid var(--accent); padding: 2rem; border-radius: 0 12px 12px 0;
+            margin-top: 2rem; color: var(--text-dark); box-shadow: var(--shadow-soft);
+        }
+        .ai-result-box.active { display: block; animation: slideInLeft 0.5s cubic-bezier(0.25, 0.8, 0.25, 1) forwards; }
+        
+        .ai-result-title { font-size: 1.2rem; font-weight: 800; color: var(--primary); margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.05em; }
+        .ai-result-content { white-space: pre-wrap; font-size: 1.1rem; line-height: 1.6; }
+        .loading-state { display: none; text-align: center; padding: 2rem 0; color: var(--primary); font-weight: 700; letter-spacing: 1px; animation: pulse 1.5s infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+
+        /* =========================================
+           BONUS SECTION
+           ========================================= */
+        #bonus { padding: 6rem 0; }
+        .bonus-content {
+            background: linear-gradient(135deg, rgba(15, 118, 110, 0.9) 0%, rgba(11, 88, 82, 0.95) 100%);
+            backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 5rem 4rem; border-radius: var(--radius); text-align: center; max-width: 900px; margin: 0 auto;
+            color: white; box-shadow: 0 20px 50px rgba(11, 88, 82, 0.3);
+            transition: transform 0.3s ease;
+        }
+        .bonus-content:hover { transform: translateY(-5px); }
+        .bonus-content h2, .bonus-content p { color: white; transform: translateZ(30px); }
+        .bonus-content p { opacity: 0.9; font-size: 1.15rem; }
+        .bonus-badge {
+            display: inline-block; background: var(--accent); color: white; font-weight: 800;
+            padding: 0.6rem 1.5rem; border-radius: 50px; margin-bottom: 2rem;
+            text-transform: uppercase; letter-spacing: 0.05em; font-size: 0.875rem;
+            box-shadow: 0 4px 15px rgba(228, 87, 46, 0.4); transform: translateZ(40px);
+        }
+
+        /* =========================================
+           WORKS SECTION
+           ========================================= */
+        #works { text-align: center; }
+        .works-box { padding: 5rem 3rem; max-width: 900px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; }
+        .works-box > * { transform: translateZ(20px); }
+
+        /* =========================================
+           PRICING SECTION
+           ========================================= */
+        .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2.5rem; align-items: stretch; perspective: 1000px; }
+        
+        .pricing-card { padding: 3rem 2.5rem; display: flex; flex-direction: column; position: relative; overflow: visible; }
+        .pricing-card > * { transform: translateZ(25px); }
+        .pricing-card:hover { transform: translateY(-10px) scale(1.02); z-index: 10; border-color: rgba(255,255,255,1); }
+
+        .pricing-popular {
+            background: rgba(255, 255, 255, 0.8);
+            border: 2px solid var(--primary);
+            transform: scale(1.05); z-index: 1;
+            box-shadow: 0 20px 40px rgba(15, 118, 110, 0.15);
+        }
+        .pricing-popular:hover { transform: scale(1.08) translateY(-10px); }
+
+        .popular-badge {
+            position: absolute; top: -18px; left: 50%; transform: translateX(-50%) translateZ(40px);
+            background: linear-gradient(135deg, var(--accent), var(--accent-hover)); color: white;
+            padding: 0.5rem 1.8rem; border-radius: 50px; font-size: 0.9rem; font-weight: 800;
+            text-transform: uppercase; box-shadow: 0 8px 20px rgba(228, 87, 46, 0.3);
+        }
+
+        .pricing-name { font-size: 1.5rem; font-weight: 800; margin-bottom: 0.5rem; color: var(--text-dark); }
+        .pricing-price { font-size: 3.8rem; font-weight: 800; color: var(--primary); margin-bottom: 1rem; line-height: 1; }
+        .pricing-price span { font-size: 1.25rem; color: var(--text-light); font-weight: 500; }
+        
+        .pricing-target { font-size: 1.05rem; color: var(--text-dark); font-weight: 600; margin-bottom: 2rem; padding-bottom: 2rem; border-bottom: 1px solid rgba(0,0,0,0.1); }
+        .pricing-features { list-style: none; margin-bottom: 3rem; flex-grow: 1; }
+        .pricing-features li { margin-bottom: 1rem; display: flex; align-items: flex-start; font-size: 1.05rem; font-weight: 500; }
+        .pricing-features li.included::before { content: "✓"; color: var(--primary); font-weight: 800; margin-right: 1rem; font-size: 1.2rem; }
+        .pricing-features li.excluded { color: #9ca3af; }
+        .pricing-features li.excluded::before { content: "×"; color: #9ca3af; font-weight: 800; margin-right: 1rem; font-size: 1.2rem; }
+        
+        .pricing-trigger { font-style: italic; font-size: 0.95rem; color: var(--accent); text-align: center; margin-top: 1.5rem; font-weight: 600; }
+        .pricing-btn { width: 100%; }
+
+        .pricing-explainer { padding: 3rem; margin-top: 5rem; max-width: 900px; margin-left: auto; margin-right: auto; }
+        .pricing-explainer p { transform: translateZ(20px); }
+
+        /* =========================================
+           TEAM SECTION
+           ========================================= */
+        .grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2.5rem; perspective: 1000px; }
+        
+        .team-card { padding: 3rem 2rem; text-align: center; }
+        .team-card > * { transform: translateZ(20px); }
+        .team-initial {
+            width: 90px; height: 90px;
+            background: linear-gradient(135deg, rgba(255,255,255,0.8), rgba(255,255,255,0.4));
+            color: var(--primary); font-size: 2.5rem; font-weight: 800;
+            display: flex; align-items: center; justify-content: center;
+            border-radius: 50%; margin: 0 auto 1.5rem auto;
+            box-shadow: inset 0 2px 5px rgba(255,255,255,0.8), 0 8px 20px rgba(15, 118, 110, 0.1);
+            border: 1px solid rgba(255,255,255,0.6);
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .team-card:hover .team-initial { transform: scale(1.1) rotate(5deg) translateZ(30px); background: var(--primary); color: white; border-color: var(--primary); }
+        .team-card h3 { font-size: 1.35rem; margin-bottom: 0.25rem; font-weight: 800; }
+        .team-role { color: var(--accent); font-weight: 700; font-size: 0.9rem; margin-bottom: 1.5rem; text-transform: uppercase; letter-spacing: 0.05em; }
+
+        /* =========================================
+           CONTACT SECTION
+           ========================================= */
+        .contact-wrapper { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+        .contact-info h2 { font-size: 3.5rem; font-weight: 800; margin-bottom: 1.5rem; }
+        .contact-details { margin-top: 3rem; }
+        .contact-details p { font-weight: 700; color: var(--text-dark); margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.05em; font-size: 0.9rem; }
+        .contact-details a { font-weight: 500; color: var(--text-light); display: block; margin-bottom: 1.5rem; font-size: 1.1rem; position: relative; width: fit-content;}
+        .contact-details a::after { content: ''; position: absolute; width: 0; height: 2px; bottom: -2px; left: 0; background: var(--primary); transition: width 0.3s ease; }
+        .contact-details a:hover { color: var(--primary); }
+        .contact-details a:hover::after { width: 100%; }
+
+        .form-card { padding: 3.5rem; }
+        .form-card > * { transform: translateZ(20px); }
+        .form-group { margin-bottom: 1.8rem; }
+        .form-group label { display: block; font-weight: 700; margin-bottom: 0.8rem; color: var(--text-dark); font-size: 0.95rem; }
+        .form-control {
+            width: 100%; padding: 1.2rem 1.4rem;
+            background: rgba(255, 255, 255, 0.7);
+            border: 2px solid rgba(255,255,255,0.5); border-radius: 12px;
+            font-size: 1.05rem; transition: var(--transition);
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.02);
+        }
+        .form-control:focus { outline: none; border-color: var(--primary); background: #ffffff; box-shadow: 0 0 0 4px rgba(15, 118, 110, 0.1); transform: translateY(-2px); }
+        select.form-control { cursor: pointer; appearance: none; background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%230f766e%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E"); background-repeat: no-repeat; background-position: right 1.2rem top 50%; background-size: 0.8rem auto; }
+        
+        .submit-btn { width: 100%; font-size: 1.2rem; padding: 1.4rem; margin-top: 1rem; }
+        .form-message { display: none; margin-top: 1.5rem; padding: 1.2rem; background: rgba(15, 118, 110, 0.15); border: 1px solid var(--primary); color: var(--primary-dark); border-radius: 12px; text-align: center; font-weight: 700; animation: slideInLeft 0.5s ease; }
+
+        /* =========================================
+           FINAL CTA & FOOTER
+           ========================================= */
+        #final-cta {
+            background: linear-gradient(135deg, #111111, #222222);
+            color: white; text-align: center; padding: 10rem 2rem; position: relative; overflow: hidden;
+        }
+        #final-cta::before {
+            content: ''; position: absolute; width: 600px; height: 600px; background: var(--accent);
+            border-radius: 50%; filter: blur(150px); opacity: 0.2; top: -50%; left: 50%; transform: translateX(-50%);
+        }
+        #final-cta h2 { color: white; font-size: 4rem; font-weight: 800; max-width: 1000px; margin: 0 auto 4rem auto; line-height: 1.15; position: relative; z-index: 1;}
+        #final-cta .btn { position: relative; z-index: 1; transform: translateZ(20px); }
+
+        footer { background: #0a0a0a; border-top: 1px solid rgba(255,255,255,0.05); padding: 3rem 0; text-align: center; color: rgba(255,255,255,0.4); font-size: 0.95rem; }
+
+        /* =========================================
+           DIRECTIONAL SCROLL ANIMATIONS
+           ========================================= */
+        .reveal-up { opacity: 0; transform: translateY(60px); transition: opacity 0.8s cubic-bezier(0.25, 0.8, 0.25, 1), transform 0.8s cubic-bezier(0.25, 0.8, 0.25, 1); }
+        .reveal-left { opacity: 0; transform: translateX(-60px); transition: opacity 0.8s cubic-bezier(0.25, 0.8, 0.25, 1), transform 0.8s cubic-bezier(0.25, 0.8, 0.25, 1); }
+        .reveal-right { opacity: 0; transform: translateX(60px); transition: opacity 0.8s cubic-bezier(0.25, 0.8, 0.25, 1), transform 0.8s cubic-bezier(0.25, 0.8, 0.25, 1); }
+        .reveal-scale { opacity: 0; transform: scale(0.9); transition: opacity 0.8s cubic-bezier(0.25, 0.8, 0.25, 1), transform 0.8s cubic-bezier(0.25, 0.8, 0.25, 1); }
+        
+        .is-visible { opacity: 1 !important; transform: translate(0) scale(1) !important; }
+
+        @keyframes slideInLeft { from { opacity: 0; transform: translateX(-20px); } to { opacity: 1; transform: translateX(0); } }
+
+        /* =========================================
+           RESPONSIVE DESIGN
+           ========================================= */
+        @media (max-width: 992px) {
+            .hero-title { font-size: 3.8rem; }
+            .system-row, .system-row:nth-child(even) { flex-direction: column; gap: 3rem; text-align: center; }
+            .system-content li { justify-content: center; text-align: left; }
+            .contact-wrapper { grid-template-columns: 1fr; }
+            .pricing-popular { transform: none; }
+            .pricing-popular:hover { transform: translateY(-10px); }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .hero-title { font-size: 3rem; }
+            .hero-subtitle { font-size: 1.2rem; }
+            .section { padding: 6rem 0; }
+            .section-header h2 { font-size: 2.5rem; }
+            .system-content h3 { font-size: 2.2rem; }
+            #final-cta h2 { font-size: 2.8rem; }
+            .form-card { padding: 2.5rem; }
+            .trust-proof { flex-direction: column; align-items: center; gap: 1rem; }
+            .glass-panel { backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); } /* better performance on mobile */
+        }
+    </style>
+</head>
+<body>
+
+    <!-- BACKGROUND BLOBS FOR GLASS EFFECT -->
+    <div class="bg-mesh">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
+    <!-- NAVIGATION -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">Content Riser</a>
+            <div class="nav-links">
+                <a href="#education">The Problem</a>
+                <a href="#offer">Our System</a>
+                <a href="#pricing">Pricing</a>
+                <a href="#team">Team</a>
+            </div>
+            <a href="https://app.lemcal.com/@contentriser" target="_blank" class="btn btn-primary nav-cta">Start Monetizing</a>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section id="hero">
+        <div class="container hero-content reveal-up">
+            <h1 class="hero-title">You’re Getting Views… <br>But Still Not Getting Paid.</h1>
+            <p class="hero-subtitle">We build lead magnets, funnels, and email systems that turn passive followers into subscribers, buyers, and real revenue.</p>
+            
+            <div class="trust-proof">
+                <div class="proof-item">3–5 days email system that starts selling</div>
+                <div class="proof-item">1 clear goal: turn attention into buyers</div>
+                <div class="proof-item">24/7 system capturing leads while you post</div>
+            </div>
+
+            <div class="hero-ctas">
+                <a href="https://app.lemcal.com/@contentriser" target="_blank" class="btn btn-accent">Find My Lost Revenue</a>
+                <a href="#pricing" class="btn btn-outline glass-panel">See Monetization Packages</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- EDUCATION / PROBLEM SECTION -->
+    <section id="education" class="section">
+        <div class="container">
+            <div class="section-header reveal-up">
+                <h2>Why Your Audience Isn't Paying You</h2>
+                <p>You did the hard part. You built the audience. But without a system to harvest that attention, you are leaving thousands on the table every month.</p>
+            </div>
+
+            <div class="grid-3">
+                <div class="edu-card glass-panel reveal-up" data-tilt>
+                    <h3>1. Views Without A Funnel Leak Money</h3>
+                    <p>A viral video gives you a spike in dopamine, but it does nothing for your bank account if the traffic has nowhere to go. Attention is fleeting. If you don't capture an email or direct them to an offer immediately, that viewer swipes away and is gone forever.</p>
+                </div>
+                <div class="edu-card glass-panel reveal-up" style="transition-delay: 0.1s;" data-tilt>
+                    <h3>2. Views Are Not A Business Model</h3>
+                    <p>Depending on platform payouts or hoping for random sponsorships is a gamble, not a business. The algorithm can change tomorrow. You are renting your audience from the platforms. True business growth comes from an owned audience—a dedicated list you can sell to at any time.</p>
+                </div>
+                <div class="edu-card glass-panel reveal-up" style="transition-delay: 0.2s;" data-tilt>
+                    <h3>3. Silent Followers Are Hidden Buyers</h3>
+                    <p>90% of your audience will never like, comment, or share your posts. But they are watching. These silent lurkers are often your best buyers. They don't want to engage publicly; they want solutions. A dedicated system speaks directly to their psychology.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SYSTEM / OFFER SECTION -->
+    <section id="offer" class="section">
+        <div class="container">
+            <div class="section-header reveal-up">
+                <h2>The Revenue Machine</h2>
+                <p>We don't just build pages. We architect a complete psychological path from a casual viewer to a committed buyer.</p>
+            </div>
+
+            <div class="system-row">
+                <div class="system-content reveal-left">
+                    <span class="system-number">01</span>
+                    <h3>The Lead Magnet</h3>
+                    <p>We create an irresistible, high-value asset that acts as the ultimate ethical bribe. This isn't a generic PDF; it's a specific solution to your audience's biggest pain point.</p>
+                    <ul>
+                        <li>Instantly triggers reciprocity and trust.</li>
+                        <li>Filters out casual scrollers from highly qualified leads.</li>
+                        <li>Transforms rented followers into an owned email list.</li>
+                    </ul>
+                </div>
+                <div class="system-box glass-panel reveal-right" data-tilt>
+                    <h4>Outcome</h4>
+                    <p>A rapidly growing asset of highly qualified, owned traffic that nobody can take away from you.</p>
+                </div>
+            </div>
+
+            <div class="system-row">
+                <div class="system-content reveal-right">
+                    <span class="system-number">02</span>
+                    <h3>The Funnel System</h3>
+                    <p>While most creators send traffic to a messy Linktree where attention dies, we build a hyper-focused, conversion-optimized funnel.</p>
+                    <ul>
+                        <li>Removes distractions and decision fatigue.</li>
+                        <li>Captures lost traffic with precision tracking.</li>
+                        <li>Guides the user through a single, psychological path to conversion.</li>
+                    </ul>
+                </div>
+                <div class="system-box glass-panel reveal-left" data-tilt>
+                    <h4>Outcome</h4>
+                    <p>Maximum conversion rates. Every click is optimized to take the exact action that grows your revenue.</p>
+                </div>
+            </div>
+
+            <div class="system-row">
+                <div class="system-content reveal-left">
+                    <span class="system-number">03</span>
+                    <h3>The Email Sequence</h3>
+                    <p>This is where the real money is made. An automated 3-5 day sequence that acts as your tireless, 24/7 invisible salesperson.</p>
+                    <ul>
+                        <li>Builds deep, parasocial trust without you lifting a finger.</li>
+                        <li>Overcomes objections before the prospect even asks.</li>
+                        <li>Converts silent readers into eager buyers through storytelling.</li>
+                    </ul>
+                </div>
+                <div class="system-box glass-panel reveal-right" data-tilt>
+                    <h4>Outcome</h4>
+                    <p>A predictable system that generates sales in your sleep while you focus purely on creating content.</p>
+                </div>
+            </div>
+
+            <div class="system-row">
+                <div class="system-content reveal-right">
+                    <span class="system-number">04</span>
+                    <h3>Monetization Strategy</h3>
+                    <p>We don't guess. We map out the exact path from content to cash. We align your content strategy with your backend offers.</p>
+                    <ul>
+                        <li>Creates a logical bridge from free content to paid products.</li>
+                        <li>Maximizes the lifetime value of every single subscriber.</li>
+                        <li>Turns your creative passion into a scalable business model.</li>
+                    </ul>
+                </div>
+                <div class="system-box glass-panel reveal-left" data-tilt>
+                    <h4>Outcome</h4>
+                    <p>Clarity. You will finally have a predictable mechanism that turns your creative output into tangible profit.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI GENERATOR SECTION -->
+    <section id="ai-tool" class="section">
+        <!-- Floating Particles Generated in JS -->
+        <div id="particles-container"></div>
+        
+        <div class="container ai-container reveal-scale">
+            <h2>Stop Guessing. Start Converting.</h2>
+            <p style="color: var(--text-dark);">Tell our AI your niche, and we'll instantly engineer a high-converting lead magnet idea specifically tailored to your audience's psychology.</p>
+            
+            <div class="ai-card glass-panel" data-tilt>
+                <div class="ai-input-group">
+                    <input type="text" id="niche-input" placeholder="e.g. Fitness for busy moms, B2B SaaS Founders...">
+                    <button id="generate-btn" class="btn btn-accent ai-btn">✨ Generate Idea</button>
+                </div>
+                
+                <div id="ai-loading" class="loading-state">
+                    Analyzing audience psychology... ✨
+                </div>
+
+                <div id="ai-result" class="ai-result-box">
+                    <div class="ai-result-title">Your Custom Lead Magnet Strategy</div>
+                    <div id="ai-output" class="ai-result-content"></div>
+                    <div style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid rgba(0,0,0,0.1);">
+                        <p style="font-size: 0.95rem; margin-bottom: 0;"><em>This is just step 1. We build the landing page, write the emails, and automate this entire system for you.</em> <a href="#pricing" style="font-weight: 800;">See packages.</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- BONUS SECTION -->
+    <section id="bonus" class="section">
+        <div class="container">
+            <div class="bonus-content reveal-up" data-tilt>
+                <span class="bonus-badge">Exclusive Offer</span>
+                <h2>Web Development Bonus For Qualified Clients</h2>
+                <p class="mb-4">Perception is reality. If you want to charge premium prices, your digital real estate must look premium.</p>
+                <p>For clients who qualify for our higher-tier packages, we include custom, high-end web development for your funnel. A beautiful, seamless, and lightning-fast design doesn't just look good—it drastically increases trust and skyrockps conversion rates. This bonus ensures your monetization system matches the quality of the content you produce.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- PORTFOLIO SECTION -->
+    <section id="works" class="section">
+        <div class="container">
+            <div class="works-box glass-panel reveal-scale" data-tilt>
+                <h2 class="mb-3" style="font-size: 2.8rem; font-weight: 800;">Our Work Speaks For Itself</h2>
+                <p class="mb-4" style="font-size: 1.25rem;">Proof of systems, funnels, and assets built to convert attention into revenue. Stop guessing and see exactly what a high-converting backend looks like.</p>
+                <a href="https://drive.google.com/drive/folders/1VP20KtBNkM5UdPQ5ZIGggKO5I7vGnQuM?usp=drive_link" target="_blank" class="btn btn-primary" style="font-size: 1.125rem; padding: 1.2rem 3rem;">View Portfolio</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRICING SECTION -->
+    <section id="pricing" class="section">
+        <div class="container">
+            <div class="section-header reveal-up">
+                <h2>Monetization Packages</h2>
+                <p>Invest in the system once. Let it generate revenue for years. Choose the path that fits your audience size and goals.</p>
+            </div>
+
+            <div class="pricing-grid">
+                <!-- Starter -->
+                <div class="pricing-card glass-panel reveal-up" data-tilt>
+                    <h3 class="pricing-name">Starter</h3>
+                    <div class="pricing-price">$199 <span>/ one-time</span></div>
+                    <div class="pricing-target">For creators just starting to capture their audience. Perfect for testing the waters.</div>
+                    
+                    <ul class="pricing-features">
+                        <li class="included">High-Converting Lead Magnet Strategy</li>
+                        <li class="included">Basic Landing Page Setup</li>
+                        <li class="included">Email Capture Integration</li>
+                        <li class="excluded">Automated Email Sequence</li>
+                        <li class="excluded">Advanced Funnel Architecture</li>
+                        <li class="excluded">Web Development Bonus</li>
+                    </ul>
+                    
+                    <a href="https://app.lemcal.com/@contentriser" target="_blank" class="btn btn-outline pricing-btn glass-panel">Select Starter</a>
+                    <div class="pricing-trigger">Stop losing the leads you already earned.</div>
+                </div>
+
+                <!-- Growth -->
+                <div class="pricing-card pricing-popular glass-panel reveal-up" style="transition-delay: 0.1s;" data-tilt>
+                    <span class="popular-badge">Most Popular</span>
+                    <h3 class="pricing-name">Growth</h3>
+                    <div class="pricing-price">$499 <span>/ one-time</span></div>
+                    <div class="pricing-target">The sweet spot. A complete funnel and email system designed to start selling immediately.</div>
+                    
+                    <ul class="pricing-features">
+                        <li class="included">Premium Lead Magnet Creation</li>
+                        <li class="included">High-Converting Sales Funnel</li>
+                        <li class="included">3-Day Automated Email Sequence</li>
+                        <li class="included">Copywriting that Converts</li>
+                        <li class="included">Basic Monetization Strategy</li>
+                        <li class="excluded">Web Development Bonus</li>
+                    </ul>
+                    
+                    <a href="https://app.lemcal.com/@contentriser" target="_blank" class="btn btn-primary pricing-btn">Select Growth</a>
+                    <div class="pricing-trigger">Turn silent followers into instant buyers.</div>
+                </div>
+
+                <!-- Premium -->
+                <div class="pricing-card glass-panel reveal-up" style="transition-delay: 0.2s;" data-tilt>
+                    <h3 class="pricing-name">Premium</h3>
+                    <div class="pricing-price">$999 <span>/ one-time</span></div>
+                    <div class="pricing-target">For serious creators wanting a complete, hands-off, custom-designed monetization machine.</div>
+                    
+                    <ul class="pricing-features">
+                        <li class="included">Everything in Growth</li>
+                        <li class="included">5-7 Day Advanced Email Sequence</li>
+                        <li class="included">Complex Funnel Architecture</li>
+                        <li class="included">Deep Monetization Roadmap</li>
+                        <li class="included">Priority Support & Revisions</li>
+                        <li class="included" style="color: var(--accent); font-weight: 800;">Exclusive Web Dev Bonus Included</li>
+                    </ul>
+                    
+                    <a href="https://app.lemcal.com/@contentriser" target="_blank" class="btn btn-outline pricing-btn glass-panel">Select Premium</a>
+                    <div class="pricing-trigger">Maximize every dollar from your traffic.</div>
+                </div>
+            </div>
+
+            <div class="pricing-explainer glass-panel reveal-up">
+                <p style="margin: 0; color: var(--text-dark); font-weight: 500;">
+                    <strong style="color: var(--primary);">Why Growth is the best choice:</strong> It provides the critical components (Funnel + Emails) needed to see a direct ROI.<br><br>
+                    <strong style="color: var(--accent);">Why Premium is for serious creators:</strong> It includes custom web development and extended sequences, elevating your brand perception to sell high-ticket offers seamlessly.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- TEAM SECTION -->
+    <section id="team" class="section">
+        <div class="container">
+            <div class="section-header reveal-up">
+                <h2>The Minds Behind The Machine</h2>
+                <p>A specialized squad dedicated to extracting maximum value from your attention.</p>
+            </div>
+
+            <div class="grid-4">
+                <div class="team-card glass-panel reveal-up" data-tilt>
+                    <div class="team-initial">A</div>
+                    <h3>Anjum Shajith</h3>
+                    <div class="team-role">Founder & Strategist</div>
+                    <p>The visionary charting the path. Anjum designs the overarching monetization strategy, ensuring your content perfectly aligns with massive revenue goals.</p>
+                </div>
+                
+                <div class="team-card glass-panel reveal-up" style="transition-delay: 0.1s;" data-tilt>
+                    <div class="team-initial">Y</div>
+                    <h3>Yaseen</h3>
+                    <div class="team-role">Conversion Copywriter</div>
+                    <p>The master of persuasion. Yaseen crafts the psychological hooks and email sequences that make your silent followers eager to hand over their credit cards.</p>
+                </div>
+
+                <div class="team-card glass-panel reveal-up" style="transition-delay: 0.2s;" data-tilt>
+                    <div class="team-initial">I</div>
+                    <h3>Inan</h3>
+                    <div class="team-role">Visual Editor</div>
+                    <p>The architect of perception. Inan ensures every touchpoint of your system looks premium, building instant authority and unbreakable trust with your audience.</p>
+                </div>
+
+                <div class="team-card glass-panel reveal-up" style="transition-delay: 0.3s;" data-tilt>
+                    <div class="team-initial">A</div>
+                    <h3>Adhinan</h3>
+                    <div class="team-role">Funnel Architect</div>
+                    <p>The backend engineer. Adhinan pieces the technology together, ensuring your pages load instantly, capture leads flawlessly, and run smoothly 24/7.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section id="contact" class="section">
+        <div class="container">
+            <div class="contact-wrapper">
+                <div class="contact-info reveal-left">
+                    <h2>Ready To Stop Leaving Money On The Table?</h2>
+                    <p>Fill out the form to secure your spot. Once submitted, you will be redirected to book your strategy call directly on our calendar.</p>
+                    
+                    <div class="contact-details">
+                        <p>Direct Email</p>
+                        <a href="mailto:thecontentriser.co@gmail.com">thecontentriser.co@gmail.com</a>
+                        
+                        <p>Connect</p>
+                        <a href="https://www.linkedin.com/in/anjum-shajith-9b4041324" target="_blank">Anjum Shajith on LinkedIn</a>
+                        <a href="https://www.instagram.com/realanjum._" target="_blank">@realanjum._ on Instagram</a>
+                    </div>
+                </div>
+
+                <div class="form-card glass-panel reveal-right" data-tilt>
+                    <form id="monetization-form">
+                        <div class="form-group">
+                            <label for="name">Your Name</label>
+                            <input type="text" id="name" class="form-control" placeholder="John Doe" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">Best Email Address</label>
+                            <input type="email" id="email" class="form-control" placeholder="john@example.com" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="social">Main Social Link / Audience Size</label>
+                            <input type="text" id="social" class="form-control" placeholder="instagram.com/yourhandle (50k followers)" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="goal">Primary Monetization Goal</label>
+                            <select id="goal" class="form-control" required>
+                                <option value="" disabled selected>Select your goal...</option>
+                                <option value="first-dollar">Make my first dollar online</option>
+                                <option value="scale">Scale an existing offer</option>
+                                <option value="automation">Automate my current sales</option>
+                                <option value="unsure">I have the audience, but no idea what to sell</option>
+                            </select>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary submit-btn">Book Strategy Call</button>
+                        
+                        <div id="form-success-msg" class="form-message">
+                            Redirecting... Please continue booking in the opened tab!
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FINAL CTA -->
+    <section id="final-cta">
+        <div class="container reveal-scale">
+            <h2>You already built the audience. Now either monetize it… or keep leaving money on the table.</h2>
+            <a href="https://app.lemcal.com/@contentriser" target="_blank" class="btn btn-accent" style="font-size: 1.25rem; padding: 1.4rem 3.5rem;">Start Monetizing Now</a>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Content Riser. All rights reserved. Turning attention into revenue.</p>
+        </div>
+    </footer>
+
+    <!-- INTERACTION SCRIPTS -->
+    <script>
+        // 1. NAV SCROLL EFFECT
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // 2. DIRECTIONAL SCROLL ANIMATIONS (Intersection Observer)
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.15
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    // Unobserve after animating to keep it visible
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        const animatedElements = document.querySelectorAll('.reveal-up, .reveal-left, .reveal-right, .reveal-scale');
+        animatedElements.forEach((elem) => observer.observe(elem));
+
+        // 3. 3D PARALLAX DEPTH & TILT EFFECT ON HOVER
+        const tiltCards = document.querySelectorAll('[data-tilt]');
+        
+        tiltCards.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                // Disable on mobile/touch screens based on width
+                if (window.innerWidth < 768) return; 
+                
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left; // x position within the element
+                const y = e.clientY - rect.top;  // y position within the element
+                
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                // Calculate rotation based on cursor position (max 6 degrees for smooth glass effect)
+                const rotateX = ((y - centerY) / centerY) * -6; 
+                const rotateY = ((x - centerX) / centerX) * 6;
+                
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                // Reset smoothly
+                card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+            });
+        });
+
+        // 4. GENERATE BACKGROUND PARTICLES FOR AI SECTION
+        const particleContainer = document.getElementById('particles-container');
+        for (let i = 0; i < 15; i++) {
+            let particle = document.createElement('div');
+            particle.className = 'ai-particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 5 + 's';
+            particle.style.animationDuration = (8 + Math.random() * 10) + 's';
+            particleContainer.appendChild(particle);
+        }
+
+        // 5. GEMINI API INTEGRATION (Lead Magnet Generator)
+        const apiKey = ""; // API key is injected by the environment at runtime
+
+        async function generateLeadMagnetIdea() {
+            const inputField = document.getElementById('niche-input');
+            const generateBtn = document.getElementById('generate-btn');
+            const loadingState = document.getElementById('ai-loading');
+            const resultBox = document.getElementById('ai-result');
+            const outputText = document.getElementById('ai-output');
+            
+            const niche = inputField.value.trim();
+            if (!niche) {
+                alert("Please enter your niche or audience first.");
+                return;
+            }
+
+            // Micro-interaction: button scales down, input blurs
+            generateBtn.style.transform = 'scale(0.95)';
+            setTimeout(() => generateBtn.style.transform = 'translateY(-3px)', 150);
+
+            // Update UI for loading
+            generateBtn.disabled = true;
+            generateBtn.style.opacity = '0.7';
+            resultBox.classList.remove('active');
+            loadingState.style.display = 'block';
+            outputText.innerHTML = '';
+
+            const systemInstruction = `You are an elite direct-response marketer and funnel architect. 
+            The user will provide their target audience or niche. 
+            Your goal is to invent exactly ONE irresistible, high-converting Lead Magnet idea for them.
+            
+            Format your response EXACTLY like this (do not use markdown asterisks or hash symbols, just use plain text with line breaks):
+            
+            TITLE: [A highly clickable, outcome-driven title]
+            
+            FORMAT: [e.g., 3-Day Email Course, Notion Template, 1-Page Cheatsheet, etc.]
+            
+            WHY IT WORKS: [1-2 sentences explaining the psychological trigger and why this audience will instantly trade their email for it.]`;
+
+            const payload = {
+                contents: [{ parts: [{ text: `My audience/niche is: ${niche}` }] }],
+                systemInstruction: { parts: [{ text: systemInstruction }] }
+            };
+
+            let success = false;
+            let retries = 5;
+            let resultText = "Failed to generate. Please try again.";
+
+            // Exponential Backoff Implementation
+            for (let i = 0; i < retries; i++) {
+                try {
+                    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    if (!response.ok) throw new Error(`HTTP Error: ${response.status}`);
+                    
+                    const data = await response.json();
+                    resultText = data.candidates[0].content.parts[0].text;
+                    success = true;
+                    break;
+                } catch (error) {
+                    if (i === retries - 1) {
+                        resultText = "We're experiencing high demand. Please try again in a moment or book a call below to discuss your strategy directly!";
+                    } else {
+                        await new Promise(res => setTimeout(res, Math.pow(2, i) * 1000));
+                    }
+                }
+            }
+
+            // Update UI with results
+            loadingState.style.display = 'none';
+            outputText.innerText = resultText.trim();
+            resultBox.classList.add('active');
+            generateBtn.disabled = false;
+            generateBtn.style.opacity = '1';
+        }
+
+        document.getElementById('generate-btn').addEventListener('click', generateLeadMagnetIdea);
+        document.getElementById('niche-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') generateLeadMagnetIdea();
+        });
+
+        // 6. Form Submission Hijack
+        document.getElementById('monetization-form').addEventListener('submit', function(e) {
+            e.preventDefault(); 
+            
+            const btn = this.querySelector('button[type="submit"]');
+            btn.innerHTML = 'Redirecting...';
+            btn.style.transform = 'scale(0.95)';
+            
+            setTimeout(() => {
+                window.open('https://app.lemcal.com/@contentriser', '_blank');
+                document.getElementById('form-success-msg').style.display = 'block';
+                btn.innerHTML = 'Book Strategy Call';
+                btn.style.transform = 'translateY(0)';
+                this.reset();
+            }, 600);
+        });
+    </script>
+</body>
+</html>
